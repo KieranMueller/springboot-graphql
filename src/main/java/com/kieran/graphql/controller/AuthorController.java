@@ -38,6 +38,11 @@ public class AuthorController {
     }
 
     @MutationMapping
+    public Author updateAuthor(@Argument AuthorInput author) {
+        return authorService.updateAuthor(author);
+    }
+
+    @MutationMapping
     public Author deleteAuthorById(@Argument Long id) {
         return authorService.deleteAuthorById(id);
     }

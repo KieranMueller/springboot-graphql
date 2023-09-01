@@ -51,6 +51,21 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
+    public Author updateAuthor(AuthorInput author) {
+        Author authorEnt = authorRepository.findById(author.getId()).orElseThrow();
+        if(author.getFirstName() != null)
+            authorEnt.setFirstName(author.getFirstName());
+        if(author.getLastName() != null)
+            authorEnt.setLastName(author.getLastName());
+        if(author.getBooks() != null) {
+            author.getBooks().forEach(book -> {
+                authorEnt.getBooks().add(new Book(null, book.getTitle(), book.getPublisher(), authorEnt));
+            });
+        }
+        return authorRepository.save(authorEnt);
+    }
+
+    @Override
     public Author deleteAuthorById(Long id) {
         Author author = authorRepository.findById(id).orElseThrow();
         authorRepository.deleteById(id);
