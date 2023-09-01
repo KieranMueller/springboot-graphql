@@ -7,6 +7,9 @@ import com.kieran.graphql.repository.AuthorRepository;
 import com.kieran.graphql.repository.BookRepository;
 import com.kieran.graphql.service.AuthorService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,5 +48,12 @@ public class AuthorServiceImpl implements AuthorService {
             bookRepository.save(bookEntity);
         }
         return authorRepository.findById(savedAuthor.getId()).orElseThrow();
+    }
+
+    @Override
+    public Author deleteAuthorById(Long id) {
+        Author author = authorRepository.findById(id).orElseThrow();
+        authorRepository.deleteById(id);
+        return author;
     }
 }

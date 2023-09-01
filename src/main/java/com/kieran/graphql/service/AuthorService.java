@@ -14,4 +14,6 @@ public interface AuthorService {
     List<Author> getAuthorsByLastName(String lastName);
 
     Author createAuthor(AuthorInput author);
+
+    Author deleteAuthorById(Long id);
 }
